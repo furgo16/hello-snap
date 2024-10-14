@@ -35,6 +35,7 @@ jobs:
       - name: Build snap
         run: |
           sudo snapcraft --verbose --destructive-mode
+          sudo cp /root/.local/state/snapcraft/log/snapcraft-*.log
           sudo rm -rf $HOME/.config/snapcraft
 
       - name: Gather snap package name
@@ -49,4 +50,9 @@ jobs:
           name: snap-package
           path: ${{ env.snapArtifactPath }}
 
+      - name: Upload log artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapcraft-log
+          path: snapcraft-*.log
           # if: ${{ hashFiles('assets/') != '' }}
