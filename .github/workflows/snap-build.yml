@@ -35,8 +35,14 @@ jobs:
           sudo snapcraft --verbose --destructive-mode
           sudo rm -rf $HOME/.config/snapcraft
 
+      - name: Gather snap package name
+        run: |
+          snapArtifactPath=$(ls *.snap)
+          echo "Snap package name is: "$snapArtifactPath""
+          echo "$snapArtifactPath" >> $GITHUB_ENV
+
       - name: Upload snap package artifact
         uses: actions/upload-artifact@v4
         with:
           name: snap-package
-          path: *.snap
+          path: ${{ env.snapArtifactPath }}
