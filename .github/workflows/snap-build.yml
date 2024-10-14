@@ -33,20 +33,13 @@ jobs:
       # The build environment should match the snap base. For example, a core24 snap
       # should be built inside an Ubuntu 24.04 environment.
       - name: Build snap
-        continue-on-error: true
         run: |
           sudo snapcraft --verbose --destructive-mode
-          sudo ls /root/.local/state/snapcraft/log/
-          sudo ls /root/.local/state/snapcraft/log/
-          # sudo ls /root/.local/state/snapcraft/log/*.log
-          #sudo ls /root/.local/state/snapcraft/log/*
-          #sudo ls /root/.local/state/snapcraft/log/snapcraft-*.log
-          sudo cp -r /root/.local/state/snapcraft/log/ ./
           sudo rm -rf $HOME/.config/snapcraft
 
       - name: Gather snap package name
         run: |
-          snapArtifactPath=$(find . -type f -name *.snap) # | tr -d '\n')
+          snapArtifactPath=$(find . -type f -name *.snap)
           echo "Snap package name is: '$snapArtifactPath'"
           echo "snapArtifactPath=$snapArtifactPath" >> $GITHUB_ENV
 
@@ -56,9 +49,12 @@ jobs:
           name: snap-package
           path: ${{ env.snapArtifactPath }}
 
+      - name: Copy snapcraft logs
+        run: |
+          sudo cp -r /root/.local/state/snapcraft/log/ ./
+
       - name: Upload log artifact
         uses: actions/upload-artifact@v4
         with:
           name: snapcraft-log
-          path: "*.log"
-          # if: ${{ hashFiles('assets/') != '' }}
+          path: log/*
