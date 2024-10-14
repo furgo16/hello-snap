@@ -37,7 +37,7 @@ jobs:
 
       - name: Gather snap package name
         run: |
-          snapArtifactPath=$(ls *.snap)
+          snapArtifactPath=$(find . -type f -name *.snap -print0)
           echo "Snap package name is: "$snapArtifactPath""
           echo "$snapArtifactPath" >> $GITHUB_ENV
 
@@ -46,3 +46,5 @@ jobs:
         with:
           name: snap-package
           path: ${{ env.snapArtifactPath }}
+
+          if: ${{ hashFiles('assets/') != '' }}
