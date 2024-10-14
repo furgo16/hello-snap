@@ -37,7 +37,7 @@ jobs:
 
       - name: Gather snap package name
         run: |
-          snapArtifactPath=$(find . -type f -name *.snap -printf "%p")
+          snapArtifactPath=$(find . -type f -name *.snap | tr -d '\n')
           echo "Snap package name is: "$snapArtifactPath""
           echo "$snapArtifactPath" >> $GITHUB_ENV
 
