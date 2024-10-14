@@ -60,5 +60,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snapcraft-log
-          path: log/*
+          path: "*.log"
           # if: ${{ hashFiles('assets/') != '' }}
