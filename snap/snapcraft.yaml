@@ -1,5 +1,5 @@
 name: hello
-base: core24
+base: core22
 version: '2.10'
 summary: GNU Hello, the "hello world" snap
 description: |
