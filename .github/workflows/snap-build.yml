@@ -30,6 +30,8 @@ jobs:
         run: sudo snap install snapcraft --classic
 
       # Builds the snap with verbose info in destructive mode
+      # The build environment should match the snap base. For example, a core24 snap
+      # should be built inside an Ubuntu 24.04 environment.
       - name: Build snap
         run: |
           sudo snapcraft --verbose --destructive-mode
@@ -37,7 +39,8 @@ jobs:
 
       - name: Gather snap package name
         run: |
-          snapArtifactPath=$(find . -type f -name *.snap | tr -d '\n')
+          #snapArtifactPath=$(find . -type f -name *.snap | tr -d '\n')
+          snapArtifactPath="hello_2.10_amd64.snap"
           echo "Snap package name is: "$snapArtifactPath""
           echo "$snapArtifactPath" >> $GITHUB_ENV
 
