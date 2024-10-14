@@ -25,12 +25,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Install snapcraft to build the snap
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Builds the snap with verbose info in destructive mode
+      - name: Build snap
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          sudo snapcraft --verbose --destructive-mode
+          sudo rm -rf $HOME/.config/snapcraft
+
+      - name: upload snap package
+        uses: actions/upload-artifact@v4
+        with:
+          name: snap-package
+          path: freecad*.snap
