@@ -41,7 +41,7 @@ jobs:
           # sudo ls /root/.local/state/snapcraft/log/*.log
           #sudo ls /root/.local/state/snapcraft/log/*
           #sudo ls /root/.local/state/snapcraft/log/snapcraft-*.log
-          sudo cp /root/.local/state/snapcraft/log/ ./
+          sudo cp -r /root/.local/state/snapcraft/log/ ./
           sudo rm -rf $HOME/.config/snapcraft
 
       - name: Gather snap package name
