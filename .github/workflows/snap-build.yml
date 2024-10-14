@@ -35,7 +35,7 @@ jobs:
       - name: Build snap
         run: |
           sudo snapcraft --verbose --destructive-mode
-          sudo cp /root/.local/state/snapcraft/log/snapcraft-*.log
+          sudo cp /root/.local/state/snapcraft/log/snapcraft-*.log ./
           sudo rm -rf $HOME/.config/snapcraft
 
       - name: Gather snap package name
